@@ -14,19 +14,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/test")
 public class TestProductController {
-    private final ProductService productService;
-
     @Autowired
-    public TestProductController(ProductService productService) {
-        this.productService = productService;
-    }
+    private ProductService productService;
+
 
     @GetMapping("/products")
     public List<Product> getAllCountries() {
         return productService.getAll();
     }
 
-    @GetMapping("/products/{productId}")
+    @GetMapping("/products&{productId}")
     public Optional<Product> getProductById(@RequestParam Long id){
         return productService.getProductById(id);
     }
