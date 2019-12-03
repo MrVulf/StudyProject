@@ -13,7 +13,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "product_id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "name", nullable = false, unique = true)
     //@Length(min = 3, message = "*Name must have at least 5 characters")
@@ -28,13 +28,13 @@ public class Product {
 
     @Column(name = "price", nullable = false)
     //@DecimalMin(value = "0.00", message = "*Price has to be non negative number")
-    private BigDecimal price;
+    private Double price;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -62,11 +62,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal unitPrice) {
+    public void setPrice(Double unitPrice) {
         this.price = unitPrice;
     }
 
@@ -83,5 +83,16 @@ public class Product {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    public Product() {
+    }
+
+    public Product(Integer id, String name, String description, Integer quantity, Double price) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
+        this.price = price;
     }
 }

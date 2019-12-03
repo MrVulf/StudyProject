@@ -5,10 +5,12 @@ import com.example.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,5 +35,18 @@ public class TestProductController {
     @ResponseBody
     public Optional<Product> getProductById(@PathVariable String id){
         return productService.getProductById(Long.parseLong(id));
+    }
+
+
+    //@RequestMapping(value = "/addProduct/{name}&{description}&{quantity}&{price}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/addProduct/{id}/{name}/{description}/{quantity}/{price}")
+    @ResponseStatus(HttpStatus.CREATED)
+    void newProduct(@PathVariable String id,
+                    @PathVariable String name,
+                    @PathVariable String description,
+                    @PathVariable String quantity,
+                    @PathVariable String price)
+    {
+        productService.addProduct(id,name, description, quantity, price);
     }
 }

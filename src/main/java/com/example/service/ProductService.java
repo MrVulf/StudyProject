@@ -24,4 +24,12 @@ public class ProductService {
     public Optional<Product> getProductById(Long id){
         return productRepository.findById(id);
     }
+
+    public void addProduct(String id, String name, String description, String quantity, String price){
+        productRepository.save(
+                new Product(Integer.getInteger(id), name, description,
+                        Integer.getInteger(quantity),
+                        Double.valueOf(price))
+        );
+    }
 }
