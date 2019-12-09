@@ -52,6 +52,7 @@ public class TestProductController {
     {
         LOG.info("==== TEST FROM addProduct =====");
         Product newProduct = new Product(name, description, Integer.getInteger(quantity), Double.valueOf(price));
+        LOG.info("==== TEST FROM addProduct :: make instance Product =====");
         productService.createProduct(newProduct);
     }
 }
