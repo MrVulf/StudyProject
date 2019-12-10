@@ -30,15 +30,15 @@ public class TestProductController {
 
     @RequestMapping(value = "/products", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Collection<Product> getAllCountries() {
+    public Collection<Product> getAllProducts() {
         LOG.info("==== TEST FROM getAllCountries =====");
-        return productService.getProducts();
+        return productService.getAllProduct();
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Product getProductById(@PathVariable String id){
-        return productService.getProduct(id);
+        return productService.getProductById(Integer.getInteger(id));
     }
 
 

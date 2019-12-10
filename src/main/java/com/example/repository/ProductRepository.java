@@ -11,9 +11,4 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-    Product findById(@Param("id") Long id);
-    List<Product> findAll();
-//  List<Product> findAll(Pagination pagination);
-
-    void removeById(@Param("id") Long id);
 }
