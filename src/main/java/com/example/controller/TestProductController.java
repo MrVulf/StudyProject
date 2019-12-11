@@ -49,6 +49,18 @@ public class TestProductController {
         LOG.info("==== TEST FROM newProduct =====");
         return ResponseEntity.ok().body(this.productService.createProduct(product));
     }
+
+    @PutMapping("/products/{id}")
+    public ResponseEntity < Product > updateProduct(@PathVariable Integer id, @RequestBody Product product) {
+        product.setId(id);
+        return ResponseEntity.ok().body(this.productService.updateProduct(product));
+    }
+
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {
+        this.productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
+    }
 }
 
 
