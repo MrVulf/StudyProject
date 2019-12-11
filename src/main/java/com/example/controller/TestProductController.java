@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,17 +43,15 @@ public class TestProductController {
     }
 
 
-    @RequestMapping(value = "/addProduct/{name}/{description}/{quantity}/{price}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    //@PostMapping("/addProduct/{name}/{description}/{quantity}/{price}")
+    @RequestMapping(value = "/products", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    //@PostMapping("/addProduct")
     @ResponseStatus(HttpStatus.CREATED)
-    void newProduct(@PathVariable String name,
-                    @PathVariable String description,
-                    @PathVariable String quantity,
-                    @PathVariable String price)
-    {
-        LOG.info("==== TEST FROM addProduct =====");
-        Product newProduct = new Product(name, description, Integer.getInteger(quantity), Double.valueOf(price));
-        LOG.info("==== TEST FROM addProduct :: make instance Product =====");
-        productService.createProduct(newProduct);
+    public ResponseEntity<Product> newProduct(@RequestBody Product product) {
+        LOG.info("==== TEST FROM newProduct =====");
+        return ResponseEntity.ok().body(this.productService.createProduct(product));
     }
 }
+
+
+
+//@PostMapping("/addProduct")
