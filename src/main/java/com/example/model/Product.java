@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Table(name = "products")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "product_id")
     private Integer id;
 
@@ -86,12 +86,5 @@ public class Product {
     }
 
     public Product() {
-    }
-
-    public Product(String name, String description, Integer quantity, Double price) {
-        this.name = name;
-        this.description = description;
-        this.quantity = quantity;
-        this.price = price;
     }
 }

@@ -44,7 +44,6 @@ public class TestProductController {
 
 
     @RequestMapping(value = "/products", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    //@PostMapping("/addProduct")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Product> newProduct(@RequestBody Product product) {
         LOG.info("==== TEST FROM newProduct =====");
