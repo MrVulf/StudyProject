@@ -1,11 +1,7 @@
 package com.example.model;
 
-import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Min;
-import java.math.BigDecimal;
+
 
 @Entity
 @Table(name = "products")

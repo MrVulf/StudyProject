@@ -5,6 +5,7 @@ import com.example.model.ShopCart;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public interface ShopCartService{
 
@@ -12,6 +13,6 @@ public interface ShopCartService{
     void deleteShopCart(String cartId);
     ShopCart setProduct(String cartId, Product product);
     ShopCart remProduct(String cartId, Product product);
-    List<Product> getProducts(String cartId);
+    Map<Product, Integer> getProducts(String cartId);
 
 }

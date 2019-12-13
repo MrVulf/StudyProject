@@ -7,7 +7,7 @@ import com.example.repository.ShopCartRepository;
 import com.example.service.ShopCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -59,7 +59,7 @@ public class ShopCartServiceImpl implements ShopCartService {
     }
 
     @Override
-    public List<Product> getProducts(String cartId) {
+    public Map<Product, Integer> getProducts(String cartId) {
         Optional<ShopCart> cartDb = repository.findById(Integer.getInteger(cartId));
         if(cartDb.isPresent()){
             ShopCart cartUp = cartDb.get();

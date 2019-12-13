@@ -1,22 +1,19 @@
 package com.example.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-@Entity
-@Table(name = "shop_carts")
+
 public class ShopCart {
-    @Id
-    @Column(name = "cart_id")
+
     private Integer id;
+    private User user;
+    private Map<Product,Integer> products;
 
-    @Column(name = "products")
-    private List<Product> products;
-
-    public ShopCart() {
+    public ShopCart(Integer id, User user) {
+        this.id = id;
+        this.user = user;
+        products = new HashMap<>();
     }
 
     public Integer getId() {
@@ -25,14 +22,32 @@ public class ShopCart {
     public void setId(Integer id) {
         this.id = id;
     }
-    public List<Product> getProducts() {
+    public Map<Product,Integer> getProducts() {
         return products;
     }
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
     public void setProduct(Product theProduct){
-        products.add(theProduct);
+        if(products.containsKey(theProduct)){
+            products.replace(theProduct, products.get(theProduct)+1);
+        } else{
+            products.put(theProduct,1);
+        }
     }
-    public void remProduct(Product theProduct) {products.remove(theProduct);}
+    public void remProduct(Product theProduct) {
+        if(products.containsKey(theProduct)){
+            if(products.get(theProduct) != 1)
+                products.replace(theProduct, products.get(theProduct)-1);
+            else
+                products.remove(theProduct);
+        } else{
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
