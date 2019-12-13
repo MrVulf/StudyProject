@@ -1,13 +1,11 @@
 package com.example.model;
 
-import org.springframework.context.annotation.Primary;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "order_prod")
 public class OrdAndProdDb {
-
+    @Id
     @Column(name = "ord_id")
     private Integer idOrd;
 
@@ -15,11 +13,11 @@ public class OrdAndProdDb {
     private Integer idProd;
 
     @Column(name = "prod_number")
-    private Double numberProd;
+    private Integer numberProd;
 
     public OrdAndProdDb() {
     }
-    public OrdAndProdDb(Integer idOrd, Integer idProd, Double numberProd) {
+    public OrdAndProdDb(Integer idOrd, Integer idProd, Integer numberProd) {
         this.idOrd = idOrd;
         this.idProd = idProd;
         this.numberProd = numberProd;
@@ -36,10 +34,10 @@ public class OrdAndProdDb {
     public void setIdProd(Integer idProd) {
         this.idProd = idProd;
     }
-    public Double getNumberProd() {
+    public Integer getNumberProd() {
         return numberProd;
     }
-    public void setNumberProd(Double numberProd) {
+    public void setNumberProd(Integer numberProd) {
         this.numberProd = numberProd;
     }
 }

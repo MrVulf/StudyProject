@@ -6,22 +6,22 @@ import java.util.Map;
 
 public class ShopCart {
 
-    private Integer id;
-    private User user;
+    private Integer user;
     private Map<Product,Integer> products;
 
-    public ShopCart(Integer id, User user) {
-        this.id = id;
+    public ShopCart(Integer user) {
         this.user = user;
         products = new HashMap<>();
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getUser() {
+        return user;
     }
-    public void setId(Integer id) {
-        this.id = id;
+
+    public void setUser(Integer user) {
+        this.user = user;
     }
+
     public Map<Product,Integer> getProducts() {
         return products;
     }
@@ -41,13 +41,5 @@ public class ShopCart {
         } else{
             throw new IllegalArgumentException();
         }
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
