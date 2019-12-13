@@ -1,4 +1,4 @@
-package com.example.implementation;
+package com.example.impl;
 
 import com.example.model.Product;
 import com.example.repository.ProductRepository;

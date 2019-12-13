@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.implementation.ProductServiceImpl;
+import com.example.impl.ProductServiceImpl;
 import com.example.model.Product;
 import com.example.service.ProductService;
 import org.slf4j.Logger;
