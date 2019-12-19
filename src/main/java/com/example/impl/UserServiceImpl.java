@@ -6,6 +6,7 @@ import com.example.repository.UserRepository;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import java.util.Optional;
 
@@ -59,6 +60,20 @@ public class UserServiceImpl implements UserService {
             this.repository.delete(userDb.get());
         } else {
             throw new ResourceNotFoundException("Record not found with id : " + id);
+        }
+    }
+
+    @Override
+    public void checkUser(User user, BindingResult bindingResult) {
+        if (repository.findByEmail(user.getEmail()).isPresent()) {
+            bindingResult
+                    .rejectValue("email", "error.user",
+                            "There is already a user registered with the email provided");
+        }
+        if (repository.findByUsername(user.getUsername()).isPresent()) {
+            bindingResult
+                    .rejectValue("username", "error.user",
+                            "There is already a user registered with the username provided");
         }
     }
 }

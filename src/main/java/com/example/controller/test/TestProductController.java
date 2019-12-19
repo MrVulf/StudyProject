@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controller.test;
 
 import com.example.impl.ProductServiceImpl;
 import com.example.model.Product;

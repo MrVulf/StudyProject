@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controller.test;
 
 import com.example.impl.OrdAndProdDbServiceImpl;
 import com.example.impl.OrderDbServiceImpl;
