@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controller.release;
 
 import com.example.impl.UserServiceImpl;
 import com.example.model.User;
@@ -14,7 +14,6 @@ public class RegistrationController {
 
     @Autowired
     private UserServiceImpl service;
-
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -34,7 +33,7 @@ public class RegistrationController {
             modelAndView.setViewName("/registration");
         } else {
             System.out.println("__________TEST MAKING__________");
-            service.createUser(user);
+            service.addUser(user);
 
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());

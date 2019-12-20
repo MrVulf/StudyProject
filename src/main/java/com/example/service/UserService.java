@@ -3,12 +3,10 @@ package com.example.service;
 import com.example.model.User;
 import org.springframework.validation.BindingResult;
 
-import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
-    User createUser(User user);
-    User updateUser(User user);
+    User addUser(User user);
+    User updateUser(int id, User upUser);
     User getUserById(Integer userId);
     void deleteUser(Integer id);
 

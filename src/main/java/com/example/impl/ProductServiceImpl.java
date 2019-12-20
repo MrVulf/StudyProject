@@ -21,8 +21,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Product product) {
-        Optional<Product> productDb = this.productRepository.findById(product.getId());
+    public Product updateProduct(Integer id, Product product) {
+        Optional<Product> productDb = this.productRepository.findById(id);
 
         if (productDb.isPresent()) {
             Product productUpdate = productDb.get();
@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
             productRepository.save(productUpdate);
             return productUpdate;
         } else {
-            throw new ResourceNotFoundException("Record not found with id : " + product.getId());
+            throw new ResourceNotFoundException("Record not found with id : " + id);
         }
     }
 

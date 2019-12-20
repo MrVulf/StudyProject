@@ -17,27 +17,27 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
     @Override
-    public User createUser(User user) {
+    public User addUser(User user) {
         return this.repository.save(user);
     }
 
     @Override
-    public User updateUser(User user) {
-        Optional<User> userDb = this.repository.findById(user.getId());
+    public User updateUser(int id, User upUser) {
+        Optional<User> userDb = this.repository.findById(id);
 
         if(userDb.isPresent()){
             User userUpdate = userDb.get();
-            userUpdate.setId(user.getId());
-            userUpdate.setEmail(user.getEmail());
-            userUpdate.setName(user.getName());
-            userUpdate.setLastName(user.getLastName());
-            userUpdate.setPassword(user.getPassword());
-            userUpdate.setUsername(user.getUsername());
+            userUpdate.setId(upUser.getId());
+            userUpdate.setEmail(upUser.getEmail());
+            userUpdate.setName(upUser.getName());
+            userUpdate.setLastName(upUser.getLastName());
+            userUpdate.setPassword(upUser.getPassword());
+            userUpdate.setUsername(upUser.getUsername());
 
             this.repository.save(userUpdate);
             return  userUpdate;
         } else{
-            throw new ResourceNotFoundException("Record not found with id : " + user.getId());
+            throw new ResourceNotFoundException("Record not found with id : " + id);
         }
     }
 
