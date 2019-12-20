@@ -18,7 +18,7 @@ public class RegistrationController {
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("greeting",new User());
-        return "/registration";
+        return "registration";
     }
 
    @PostMapping("/registration")
@@ -37,7 +37,7 @@ public class RegistrationController {
 
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());
-            modelAndView.setViewName("/registration");
+            modelAndView.setViewName("registration");
         }
 
         return modelAndView;
