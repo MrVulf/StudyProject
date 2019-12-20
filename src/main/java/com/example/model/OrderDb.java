@@ -6,6 +6,8 @@ import javax.persistence.*;
 @Table(name = "order")
 public class OrderDb {
     @Id
+    @SequenceGenerator(name="seq-gen",sequenceName="order_seq",allocationSize=1)
+    @GeneratedValue(strategy= GenerationType.IDENTITY, generator="seq-gen")
     @Column(name = "id")
     private Integer id;
     @Column(name = "user_id")
@@ -17,10 +19,9 @@ public class OrderDb {
     public OrderDb() {
     }
 
-    public OrderDb(Order order) {
-        this.id = order.getId();
-        this.user_id = order.getCart().getUser();
-        this.totalSum = order.getTotalSum();
+    public OrderDb(Integer user_id, double totalSum) {
+        this.user_id = user_id;
+        this.totalSum = totalSum;
     }
 
     public Integer getId() {
