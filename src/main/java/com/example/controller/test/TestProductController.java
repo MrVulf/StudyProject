@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @Controller
-@RequestMapping("/test")
+@RequestMapping("/test/product")
 public class TestProductController {
 
     @Autowired
