@@ -7,7 +7,8 @@ import javax.persistence.*;
 @Table(name = "products")
 public class Product {
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="seq-gen",sequenceName="prod_seq",allocationSize=1)
+    @GeneratedValue(strategy= GenerationType.IDENTITY, generator="seq-gen")
     @Column(name = "product_id")
     private Integer id;
 
