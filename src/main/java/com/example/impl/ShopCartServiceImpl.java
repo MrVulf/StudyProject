@@ -1,6 +1,7 @@
 package com.example.impl;
 
 import com.example.exception.NotEnoughProductsInStockException;
+import com.example.exception.NotProductsInShopCartException;
 import com.example.model.OrdAndProdDb;
 import com.example.model.OrderDb;
 import com.example.model.Product;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Date;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,9 +62,14 @@ public class ShopCartServiceImpl implements ShopCartService {
     }
 
     @Override
-    public void checkout(Integer user_id) throws NotEnoughProductsInStockException {
+    public void checkout(Integer user_id) throws NotEnoughProductsInStockException, NotProductsInShopCartException {
         double total = 0.0;
         Product product;
+
+        if(products.size() == 0){
+            throw new NotProductsInShopCartException();
+        }
+
         for (Map.Entry<Product, Integer> entry : products.entrySet()) {
             // Refresh quantity for every product before checking
             product = productRepository.findById(entry.getKey().getId()).get();
@@ -71,11 +78,12 @@ public class ShopCartServiceImpl implements ShopCartService {
             entry.getKey().setQuantity(product.getQuantity() - entry.getValue());
             total += entry.getValue()*entry.getKey().getPrice();
         }
+
         /*
             If all is ok -> write down info in DB
         */
-        OrderDb newOrder = new OrderDb(user_id, total);
-        orderRepository.save(newOrder);
+        OrderDb newOrder = new OrderDb(user_id, total, new Date());
+        newOrder = orderRepository.save(newOrder);
         for (Map.Entry<Product, Integer> entry : products.entrySet()) {
             OrdAndProdDb note = new OrdAndProdDb(
                     newOrder.getId(),

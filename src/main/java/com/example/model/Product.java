@@ -27,6 +27,9 @@ public class Product {
     //@DecimalMin(value = "0.00", message = "*Price has to be non negative number")
     private Double price;
 
+    public Product() {
+    }
+
     public Integer getId() {
         return id;
     }
@@ -82,6 +85,14 @@ public class Product {
         return id.hashCode();
     }
 
-    public Product() {
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                '}';
     }
 }

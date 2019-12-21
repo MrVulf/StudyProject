@@ -1,6 +1,7 @@
 package com.example.controller.test;
 
 import com.example.exception.NotEnoughProductsInStockException;
+import com.example.exception.NotProductsInShopCartException;
 import com.example.impl.ShopCartServiceImpl;
 import com.example.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,10 @@ public class TestShopCartController {
 
     @PostMapping("/put_prod")
     @ResponseStatus(code = HttpStatus.OK)
-    public void putProduct(@RequestBody Product product){
+    @ResponseBody
+    public String putProduct(@RequestBody Product product){
         service.addProduct(product);
+        return "You put " + product.getName() + " successfully";
     }
 
     @PostMapping("/checkout/{id}")
@@ -44,6 +47,9 @@ public class TestShopCartController {
         }
         catch (NotEnoughProductsInStockException e){
             return "We don't have enough number of products :(";
+        }
+        catch (NotProductsInShopCartException e){
+            return "You don't have products in shop cart :(";
         }
         return "Order made successfully";
     }
