@@ -17,8 +17,6 @@ import java.util.List;
 public class ShopCartServiceImpl implements ShopCartService {
 
     private ShopCart shopCart = new ShopCart();
-    @Autowired
-    private OrderRepository orderRepository;
 
     @Override
     public Product addProduct(Product product) {
