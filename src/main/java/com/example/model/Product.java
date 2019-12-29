@@ -2,9 +2,8 @@ package com.example.model;
 
 import javax.persistence.*;
 
-
 @Entity
-@Table(name = "products")
+@Table(name = "product")
 public class Product {
     @Id
     @SequenceGenerator(name="seq-gen",sequenceName="prod_seq",allocationSize=1)

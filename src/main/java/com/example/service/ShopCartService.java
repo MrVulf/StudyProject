@@ -3,14 +3,14 @@ package com.example.service;
 import com.example.exception.NotEnoughProductsInStockException;
 import com.example.exception.NotProductsInShopCartException;
 import com.example.model.Product;
+import com.example.model.SelectedProduct;
 
-import java.math.BigDecimal;
-import java.util.Map;
+import java.util.List;
 
 public interface ShopCartService  {
-    void addProduct(Product product);
+    Product addProduct(Product product);
     void removeProduct(Product product);
-    Map<Product, Integer> getProductsInCart();
-    void checkout(Integer user_id) throws NotEnoughProductsInStockException, NotProductsInShopCartException;
+    void removeProduct(Product product, int amount);
+    List<SelectedProduct> getProductsInCart();
     double getTotal();
 }

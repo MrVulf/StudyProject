@@ -2,63 +2,64 @@ package com.example.controller.test;
 
 import com.example.exception.NotEnoughProductsInStockException;
 import com.example.exception.NotProductsInShopCartException;
+import com.example.impl.OrderServiceImpl;
+import com.example.impl.OrderedProductServiceImpl;
 import com.example.impl.ShopCartServiceImpl;
+import com.example.model.Order;
 import com.example.model.Product;
+import com.example.model.SelectedProduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.Date;
+import java.util.List;
 
 @Controller
-@RequestMapping(value = "/test/shop_cart")
+@RequestMapping(value = "/test/shop-cart")
 public class TestShopCartController {
-
     @Autowired
-    private ShopCartServiceImpl service;
+    private ShopCartServiceImpl cartService;
+    @Autowired
+    private OrderServiceImpl orderService;
+    @Autowired
+    private OrderedProductServiceImpl orderedProductService;
 
-    @GetMapping("/current_prod")
+    @GetMapping("/current-prod")
     @ResponseStatus(code = HttpStatus.FOUND)
     @ResponseBody
-    public Map<Product,Integer> getAllProduct(){
-        return service.getProductsInCart();
+    public List<SelectedProduct> getAllProduct(){
+        return cartService.getProductsInCart();
     }
 
-    @GetMapping("/get_total")
+    @GetMapping("/get-total")
     @ResponseBody
-    public String getTotal(){
-        return "Your total sum is " + service.getTotal();
+    public Double getTotal(){
+        return cartService.getTotal();
     }
 
-    @PostMapping("/put_prod")
+    @PostMapping("/add-prod")
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
-    public String putProduct(@RequestBody Product product){
-        service.addProduct(product);
-        return "You put " + product.getName() + " successfully";
+    public ResponseEntity<Product> putProduct(@RequestBody Product product){
+        return ResponseEntity.ok(cartService.addProduct(product));
     }
 
     @PostMapping("/checkout/{id}")
     @ResponseBody
-    public String finishOrder(@PathVariable Integer id) {
-        try {
-            service.checkout(id);
-        }
-        catch (NotEnoughProductsInStockException e){
-            return "We don't have enough number of products :(";
-        }
-        catch (NotProductsInShopCartException e){
-            return "You don't have products in shop cart :(";
-        }
-        return "Order made successfully";
+    public Order finishOrder(@PathVariable Integer id)
+    {
+        Order order = orderService.makeOrder(id, new Date(), cartService.getShopCart());
+        orderService.addOrderInDB(order);
+        orderedProductService.addDetailInDB(order);
+        return order;
     }
 
-    @PutMapping("/remove_prod")
+    @PutMapping("/remove-prod")
     @ResponseBody
-    public String removeProd(@RequestBody Product product){
-        service.removeProduct(product);
-        return "Removed successfully";
+    public void removeProd(@RequestBody Product product){
+        cartService.removeProduct(product);
     }
-
 }
