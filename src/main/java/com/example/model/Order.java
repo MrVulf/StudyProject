@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
     @Id
     @SequenceGenerator(name="seq-gen",sequenceName="order_seq",allocationSize=1)
@@ -19,15 +19,15 @@ public class Order {
     @Column(name = "ord_date")
     private Date ordDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
-            targetEntity = ProductAndAmount.class, mappedBy = "id")
-    private List<ProductAndAmount> productList;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
+    private List<SelectedProduct> productList;
 
 
     public Order() {
     }
 
-    public Order(Integer userId, double totalCost, Date ordDate, List<ProductAndAmount> productList) {
+    public Order(Integer userId, double totalCost, Date ordDate, List<SelectedProduct> productList) {
         this.userId = userId;
         this.totalCost = totalCost;
         this.ordDate = ordDate;
@@ -40,10 +40,10 @@ public class Order {
     public void setOrdDate(Date ordDate) {
         this.ordDate = ordDate;
     }
-   public List<ProductAndAmount> getProductList() {
+   public List<SelectedProduct> getProductList() {
         return productList;
     }
-    public void setProductList(List<ProductAndAmount> productList) {
+    public void setProductList(List<SelectedProduct> productList) {
         this.productList = productList;
     }
     public Integer getId() {

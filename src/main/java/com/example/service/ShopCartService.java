@@ -41,7 +41,7 @@ public class ShopCartService {
                 userId,
                 cart.calculateTotalPrice(),
                 new Date(),
-                cart.getOrderProductList()
+                cart.getProductList()
         );
 
         orderRepository.save(order);

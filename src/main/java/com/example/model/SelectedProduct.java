@@ -3,10 +3,21 @@ package com.example.model;
 import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "prod_amount")
 public class SelectedProduct {
 
+    @Id
+    @SequenceGenerator(name="seq-gen",sequenceName="prod_amount_seq",allocationSize=1)
+    @GeneratedValue(strategy= GenerationType.IDENTITY, generator="seq-gen")
+    @Column(name = "id")
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
 
+    @Column(name = "prod_amount")
     private Integer amount;
 
     public SelectedProduct() {
