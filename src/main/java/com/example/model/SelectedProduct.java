@@ -1,10 +1,12 @@
 package com.example.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 public class SelectedProduct {
 
     private Product product;
+
     private Integer amount;
 
     public SelectedProduct() {
@@ -35,21 +37,13 @@ public class SelectedProduct {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SelectedProduct that = (SelectedProduct) o;
-        return Objects.equals(product, that.product) &&
-                Objects.equals(amount, that.amount);
+        SelectedProduct product1 = (SelectedProduct) o;
+        return Objects.equals(product, product1.product) &&
+                Objects.equals(amount, product1.amount);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(product, amount);
-    }
-
-    @Override
-    public String toString() {
-        return "SelectedProduct{" +
-                "product=" + product +
-                ", amount=" + amount +
-                '}';
     }
 }

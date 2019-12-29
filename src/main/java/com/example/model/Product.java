@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "product")
 public class Product {
+
     @Id
     @SequenceGenerator(name="seq-gen",sequenceName="prod_seq",allocationSize=1)
     @GeneratedValue(strategy= GenerationType.IDENTITY, generator="seq-gen")

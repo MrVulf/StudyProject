@@ -1,6 +1,6 @@
 package com.example.controller.test;
 
-import com.example.impl.ProductServiceImpl;
+import com.example.service.ProductService;
 import com.example.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import java.util.Collection;
 public class TestProductController {
 
     @Autowired
-    private ProductServiceImpl productService;
+    private ProductService productService;
 
     @GetMapping(value = "/products")
     @ResponseBody

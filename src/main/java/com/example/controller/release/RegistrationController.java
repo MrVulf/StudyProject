@@ -1,6 +1,6 @@
 package com.example.controller.release;
 
-import com.example.impl.UserServiceImpl;
+import com.example.service.UserService;
 import com.example.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class RegistrationController {
 
     @Autowired
-    private UserServiceImpl service;
+    private UserService service;
 
     @GetMapping("/registration")
     public String registration(Model model) {

@@ -15,6 +15,16 @@ public class ShopCart {
         return productList;
     }
 
+    public List<ProductAndAmount> getOrderProductList(){
+        List<ProductAndAmount> list = new ArrayList<>();
+
+        for(SelectedProduct product : productList){
+            list.add(new ProductAndAmount(product.getProduct().getId(), product.getAmount()));
+        }
+
+        return list;
+    }
+
     public void setProductList(List<SelectedProduct> productList) {
         this.productList = productList;
     }
