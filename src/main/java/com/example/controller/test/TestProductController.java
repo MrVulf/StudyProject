@@ -16,33 +16,37 @@ public class TestProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping(value = "/products")
+    @GetMapping(value = "/get-all")
     @ResponseBody
     public Collection<Product> getAllProducts() {
         return productService.getAllProduct();
     }
 
-    @GetMapping(value = "/products/{id}")
+    @GetMapping(value = "/get/{id}")
     @ResponseBody
     public Product getProductById(@PathVariable String id){
         return productService.getProductById(Integer.getInteger(id));
     }
 
 
-    @PostMapping(value = "/products")
+    @PostMapping(value = "/add")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Product> newProduct(@RequestBody Product product) {
         return ResponseEntity.ok().body(this.productService.createProduct(product));
     }
 
-    @PutMapping("/products/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity < Product > updateProduct(@PathVariable Integer id, @RequestBody Product product) {
-        return ResponseEntity.ok().body(productService.updateProduct(id,product));
+        Product repProd = productService.updateProduct(id, product);
+        if(product == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return ResponseEntity.ok(repProd);
+        }
     }
 
-    @DeleteMapping("/products/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {
+    @DeleteMapping("/delete/{id}")
+    public void deleteProduct(@PathVariable Integer id) {
         this.productService.deleteProduct(id);
-        return ResponseEntity.noContent().build();
     }
 }

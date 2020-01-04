@@ -22,7 +22,6 @@ public class ProductService {
 
         if (productDb.isPresent()) {
             Product productUpdate = productDb.get();
-            productUpdate.setId(product.getId());
             productUpdate.setName(product.getName());
             productUpdate.setDescription(product.getDescription());
             productRepository.save(productUpdate);

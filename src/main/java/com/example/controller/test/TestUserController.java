@@ -30,7 +30,6 @@ public class TestUserController {
         service.checkUser(user, bindingResult);
 
         if (!bindingResult.hasErrors()) {
-            //System.out.println("__________TEST MAKING__________");
             return ResponseEntity.ok(service.addUser(user));
         } else{
             return new ResponseEntity<>(HttpStatus.CONFLICT);
