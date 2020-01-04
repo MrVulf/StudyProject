@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -23,13 +24,20 @@ public class TestUserController {
         return service.getUserById(id);
     }
 
-    @PostMapping("/add-user")
+    @PostMapping("/add")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<User> addUser (@RequestBody User user){
-        return ResponseEntity.ok(service.addUser(user));
+    public ResponseEntity<User> addUser (@RequestBody User user, BindingResult bindingResult){
+        service.checkUser(user, bindingResult);
+
+        if (!bindingResult.hasErrors()) {
+            //System.out.println("__________TEST MAKING__________");
+            return ResponseEntity.ok(service.addUser(user));
+        } else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
     }
 
-    @PutMapping("/update-user/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<User> replaceContact(@PathVariable int id, @RequestBody User user){ // id из пути
         User repUser = service.updateUser(id, user);
         if(user == null){
@@ -39,8 +47,8 @@ public class TestUserController {
         }
     }
 
-    @DeleteMapping("/delete-user")
-    public void deleteUser(@RequestParam int id){
+    @DeleteMapping("/delete/{id}")
+    public void deleteUser(@PathVariable int id){
         service.deleteUser(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.exception.ResourceNotFoundException;
+import com.example.exception.UserHaveMadeException;
 import com.example.model.User;
 import com.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,12 @@ public class UserService {
     private UserRepository repository;
 
     public User addUser(User user) {
-        return this.repository.save(user);
+        Optional<Object> userDb = this.repository.findByUsername(user.getUsername());
+        if(!userDb.isPresent()) {
+            return this.repository.save(user);
+        } else{
+            throw new UserHaveMadeException("The username is used");
+        }
     }
 
     public User updateUser(int id, User upUser) {
@@ -24,7 +30,6 @@ public class UserService {
 
         if(userDb.isPresent()){
             User userUpdate = userDb.get();
-            userUpdate.setId(upUser.getId());
             userUpdate.setEmail(upUser.getEmail());
             userUpdate.setName(upUser.getName());
             userUpdate.setLastName(upUser.getLastName());
@@ -32,7 +37,7 @@ public class UserService {
             userUpdate.setUsername(upUser.getUsername());
 
             this.repository.save(userUpdate);
-            return  userUpdate;
+            return userUpdate;
         } else{
             throw new ResourceNotFoundException("Record not found with id : " + id);
         }
