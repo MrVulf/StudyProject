@@ -16,20 +16,20 @@ public class TestUserController {
     @Autowired
     private UserService service;
 
-    @GetMapping(value = "/get_user")
+    @GetMapping(value = "/get-user")
     @ResponseStatus(code = HttpStatus.FOUND)
     @ResponseBody
     public User getUser(@RequestParam int id){
         return service.getUserById(id);
     }
 
-    @PostMapping("/add_user")
+    @PostMapping("/add-user")
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<User> addUser (@RequestBody User user){
         return ResponseEntity.ok(service.addUser(user));
     }
 
-    @PutMapping("/improve_user/{id}")
+    @PutMapping("/update-user/{id}")
     public ResponseEntity<User> replaceContact(@PathVariable int id, @RequestBody User user){ // id из пути
         User repUser = service.updateUser(id, user);
         if(user == null){
@@ -39,7 +39,7 @@ public class TestUserController {
         }
     }
 
-    @DeleteMapping("/delete_user")
+    @DeleteMapping("/delete-user")
     public void deleteUser(@RequestParam int id){
         service.deleteUser(id);
     }

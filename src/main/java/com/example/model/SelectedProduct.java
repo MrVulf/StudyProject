@@ -1,5 +1,8 @@
 package com.example.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -11,36 +14,20 @@ public class SelectedProduct {
     @SequenceGenerator(name="seq-gen",sequenceName="prod_amount_seq",allocationSize=1)
     @GeneratedValue(strategy= GenerationType.IDENTITY, generator="seq-gen")
     @Column(name = "id")
-    private Integer id;
+        @Getter @Setter private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+        @Getter @Setter private Product product;
 
     @Column(name = "prod_amount")
-    private Integer amount;
+        @Getter @Setter private Integer amount;
 
     public SelectedProduct() {
     }
 
     public SelectedProduct(Product product, Integer amount) {
         this.product = product;
-        this.amount = amount;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
