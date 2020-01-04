@@ -1,21 +1,23 @@
 package com.example.service;
 
-import com.example.model.Order;
-import com.example.model.Product;
-import com.example.model.SelectedProduct;
-import com.example.model.ShopCart;
+import com.example.exception.ResourceNotFoundException;
+import com.example.model.*;
 import com.example.repository.OrderRepository;
+import com.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShopCartService {
 
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     private ShopCart cart = new ShopCart();
 
@@ -36,14 +38,19 @@ public class ShopCartService {
         cart.removeProduct(product);
     }
 
-    public void makeOrder(Integer userId){
-        Order order = new Order(
-                userId,
-                cart.calculateTotalPrice(),
-                new Date(),
-                cart.getProductList()
-        );
+    public void makeOrder(Integer userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()) {
+            Order order = new Order(
+                    userId,
+                    cart.calculateTotalPrice(),
+                    new Date(),
+                    cart.getProductList()
+            );
 
-        orderRepository.save(order);
+            orderRepository.save(order);
+        } else {
+            throw new ResourceNotFoundException("Record not found with id : " + userId);
+        }
     }
 }
