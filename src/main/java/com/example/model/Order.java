@@ -12,7 +12,7 @@ public class Order {
     @Id
     @SequenceGenerator(name="seq-gen",sequenceName="order_seq",allocationSize=1)
     @GeneratedValue(strategy= GenerationType.IDENTITY, generator="seq-gen")
-    @Column(name = "id")
+    @Column(name = "order_id")
         @Getter @Setter private Integer id;
 
     @Column(name = "user_id")
