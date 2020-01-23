@@ -1,11 +1,12 @@
 package com.example.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@Data
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -13,20 +14,23 @@ public class Order {
     @SequenceGenerator(name="seq-gen",sequenceName="order_seq",allocationSize=1)
     @GeneratedValue(strategy= GenerationType.IDENTITY, generator="seq-gen")
     @Column(name = "order_id")
-        @Getter @Setter private Integer id;
+    private Integer id;
 
     @Column(name = "user_id")
-        @Getter @Setter private Integer userId;
+    @NotNull
+    private Integer userId;
 
     @Column(name = "total_sum")
-        @Getter @Setter private double totalCost;
+    @NotNull
+    private double totalCost;
 
     @Column(name = "ord_date")
-        @Getter @Setter private Date ordDate;
+    @NotNull
+    private Date ordDate;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
-        @Getter @Setter private List<SelectedProduct> productList;
+    private List<SelectedProduct> productList;
 
 
     public Order() {

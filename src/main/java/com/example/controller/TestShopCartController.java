@@ -1,4 +1,4 @@
-package com.example.controller.test;
+package com.example.controller;
 
 import com.example.model.Order;
 import com.example.model.Product;

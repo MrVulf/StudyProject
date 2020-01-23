@@ -1,4 +1,4 @@
-package com.example.controller.test;
+package com.example.controller;
 
 
 import com.example.service.UserService;
@@ -17,7 +17,7 @@ public class TestUserController {
     @Autowired
     private UserService service;
 
-    @GetMapping(value = "/get-user")
+    @GetMapping(value = "/get")
     @ResponseStatus(code = HttpStatus.FOUND)
     @ResponseBody
     public User getUser(@RequestParam int id){
